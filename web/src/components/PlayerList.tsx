@@ -290,7 +290,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogAction className="rounded">
-                        Close
+                        Schließen
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
@@ -304,7 +304,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                         fetchTeleport(player, "Goto");
                       }}
                     >
-                      <ArrowLeftRight size="16px" className="mr-1" /> Goto
+                      <ArrowLeftRight size="16px" className="mr-1" /> Gehe zu
                     </DropdownMenuItem>
 
                     <DropdownMenuItem
@@ -314,7 +314,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                         fetchTeleport(player, "Bring");
                       }}
                     >
-                      <ArrowRightLeft size="16px" className="mr-1" /> Bring
+                      <ArrowRightLeft size="16px" className="mr-1" /> Her holen
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className="rounded"
@@ -325,7 +325,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                     >
                       {" "}
                       <Snowflake size="16px" className="mr-1" />
-                      Freeze
+                      Einfrieren
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className="rounded mb-1"
@@ -336,7 +336,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       }}
                     >
                       <Glasses size="16px" className="mr-1" />
-                      Spectate
+                      Zuschauen
                     </DropdownMenuItem>
                   </>
                 )}
@@ -364,13 +364,13 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                               [{player.id}] | {player.name}?
                             </DialogTitle>
                             <DialogDescription>
-                              Input a reason for the kick.
+                              Gebe einen Grund an.
                             </DialogDescription>
                           </DialogHeader>
                           <div className="grid gap-4 py-4">
                             <div className="grid grid-cols-4 items-center gap-4">
                               <Label htmlFor="name" className="text-right">
-                                Reason
+                                Grund
                               </Label>
                               <Input
                                 id="name"
@@ -391,7 +391,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                               }}
                               className="rounded outline-none"
                             >
-                              Confirm Kick
+                              Bestätigen
                             </Button>
                           </DialogFooter>
                         </DialogContent>
@@ -416,13 +416,13 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                           [{player.id}] | {player.name}?
                         </DialogTitle>
                         <DialogDescription>
-                          Input a reason for the ban.
+                          Gebe einen Grund an.
                         </DialogDescription>
                       </DialogHeader>
                       <div className="grid gap-4 py-4">
                         <div className="flex items-center gap-1">
                           <Label htmlFor="name" className="text-right">
-                            Reason
+                            Grund
                           </Label>
 
                           <Input
@@ -447,17 +447,17 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                                 borderColor: "gray",
                               }}
                             >
-                              <SelectItem value="1 Hour">1 Hour</SelectItem>
-                              <SelectItem value="3 Hours">3 Hours</SelectItem>
-                              <SelectItem value="6 Hours">6 Hours</SelectItem>
-                              <SelectItem value="12 Hours">12 Hours</SelectItem>
-                              <SelectItem value="1 Day">1 Day</SelectItem>
-                              <SelectItem value="3 Days">3 Day</SelectItem>
-                              <SelectItem value="1 Week">1 Week</SelectItem>
-                              <SelectItem value="1 Month">1 Month</SelectItem>
-                              <SelectItem value="3 Months">3 Months</SelectItem>
-                              <SelectItem value="6 Months">6 Months</SelectItem>
-                              <SelectItem value="1 Year">1 Year</SelectItem>
+                              <SelectItem value="1 Hour">1 Stunde</SelectItem>
+                              <SelectItem value="3 Hours">3 Stunden</SelectItem>
+                              <SelectItem value="6 Hours">6 Stunden</SelectItem>
+                              <SelectItem value="12 Hours">12 Studen</SelectItem>
+                              <SelectItem value="1 Day">1 Tag</SelectItem>
+                              <SelectItem value="3 Days">3 Tage</SelectItem>
+                              <SelectItem value="1 Week">1 Woche</SelectItem>
+                              <SelectItem value="1 Month">1 Monat</SelectItem>
+                              <SelectItem value="3 Months">3 Monate</SelectItem>
+                              <SelectItem value="6 Months">6 Monate</SelectItem>
+                              <SelectItem value="1 Year">1 Jahr</SelectItem>
                               <SelectItem value="Permanent">
                                 Permanent
                               </SelectItem>
@@ -479,7 +479,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                           }}
                           className="rounded outline-none"
                         >
-                          Confirm Ban
+                          Bestätigen
                         </Button>
                       </DialogFooter>
                     </DialogContent>
