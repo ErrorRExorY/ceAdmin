@@ -41,3 +41,9 @@ files {
 	'web/dist/index.html',
 	'web/dist/**/*',
 }
+
+escrow_ignore {
+    'sv_config.lua',
+	'config.lua',
+	'locales/**';
+}
