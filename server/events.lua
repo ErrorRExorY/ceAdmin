@@ -647,7 +647,7 @@ RegisterNetEvent("ceadmin:server:spectate:end", function()
   end
 end)
 
-RegisterNetEvent("ceadmin:server:jail", function(playerData)
+RegisterNetEvent("ceadmin:server:jail", function(data)
   local sourcePerms = AdminData[tonumber(source)]
 
   -- Überprüfe, ob der Spieler die Berechtigung zum Jailen hat
@@ -656,12 +656,12 @@ RegisterNetEvent("ceadmin:server:jail", function(playerData)
   end
 
   -- Überprüfe die Eingabedaten
-  if not playerData or not playerData.id then
+  if not data or not data.id then
     return Debug("(Error) [netEvent:ceadmin:server:jail] Die erforderlichen Spielerdaten wurden nicht übergeben.")
   end
 
   -- Hole die ID des zu jailenden Spielers aus den übergebenen Daten
-  local targetId = tonumber(playerData.id)
+  local targetId = tonumber(data.id)
   if not targetId then
     return Debug("(Error) [netEvent:ceadmin:server:jail] Ungültige Spieler-ID.")
   end

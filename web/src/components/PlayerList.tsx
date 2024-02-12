@@ -202,12 +202,12 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
   };
 
   const fetchJailUser = (player: any) => {
-    // Hier können Sie Logik hinzufügen, um den Spieler zu "jailen"
-    // Zum Beispiel könnten Sie eine Anfrage an Ihren Server schicken
-    fetchNui("ceadmin:client:jail", {
+    const data = {
       target_id: player.id,
-      // Weitere Daten können hier übergeben werden, z.B. die Dauer des Jail
-    });
+      }
+
+      
+    fetchNui("ceadmin:client:jail", data);
   
     // NUI verbergen nach dem Aufruf
     hideNui();
