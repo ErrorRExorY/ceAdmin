@@ -2,7 +2,13 @@ RegisterNetEvent("ceadmin:plist", function()
   if not source then
     return Debug("(Error) [netEvent:ceadmin:plist] source is nil/null")
   end
-
+  for playerId, playerData in pairs(PlayerList) do
+    -- Überprüfe, ob die Spieler-ID eine gültige Nummer ist
+    if tonumber(playerId) then
+      -- Aktualisiere die Bucket-ID des Spielers
+      PlayerList[playerId].bucket = GetPlayerRoutingBucket(tonumber(playerId))
+    end
+  end
 
   -- Update it only for the player that called it. (Default)
   TriggerClientEvent("UIMessage", source, "nui:plist", PlayerList)
@@ -68,7 +74,7 @@ RegisterNetEvent("ceadmin:server:kick", function(data)
     }))
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = 'Player Kicked',
     webhook = Webhooks.Kick,
     fields = {
@@ -133,7 +139,7 @@ RegisterNetEvent("ceadmin:server:options", function(data)
   end
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = ("> Option Triggered: %s"):format((data.carWipe and "Car Wipe" or data.clearChat and "Clear Chat")),
     webhook = Webhooks.Misc,
     fields = {
