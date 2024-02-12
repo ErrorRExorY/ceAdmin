@@ -11,7 +11,6 @@ import { useToast } from "./ui/use-toast";
 import {
   ArrowLeftRight,
   ArrowRightLeft,
-  BadgeJapaneseYen,
   Fingerprint,
   Gavel,
   Glasses,
@@ -351,11 +350,14 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       Zuschauen
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="rounded"
-                      disabled={!sourcePerms.Jail} // Stellen Sie sicher, dass die Berechtigung für Jail vorhanden ist
-                      onSelect={() => fetchJailUser(player)}
+                      className="rounded mb-1"
+                      disabled={!sourcePerms.Jail}
+                      onSelect={() => {
+                        fetchJailUser(player);
+                        hideNui();
+                      }}
                     >
-                      <BadgeJapaneseYen size="16px" className="mr-1" /> 
+                      <Glasses size="16px" className="mr-1" />
                       Jail
                     </DropdownMenuItem>
                   </>
