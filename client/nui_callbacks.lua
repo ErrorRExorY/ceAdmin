@@ -35,6 +35,21 @@ RegisterNuiCallback("ceadmin:client:spectate", function(playerData, cb)
   cb({})
 end)
 
+RegisterNuiCallback("ceadmin:client:jail", function(playerData, cb)
+  if not next(playerData) then
+    return Debug("(Error)  [nuiCallback:ceadmin:client:jail] first param is nil/null, returning.")
+  end
+
+  local sourceId = GetPlayerServerId(PlayerId())
+
+  if tostring(sourceId) == tostring(playerData.id) then
+    return Notify("What the fluff dude, you cannot jail yourself.")
+  end
+
+  TriggerServerEvent("ceadmin:server:jail", playerData)
+  cb({})
+end)
+
 RegisterNuiCallback("ceadmin:client:tp", function(data, cb)
   if not next(data) then
     return Debug("(Error) [ceadmin:client:tp] data param is null.")

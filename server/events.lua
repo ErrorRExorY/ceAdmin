@@ -289,7 +289,7 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
   SaveBanList(banList)
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = 'Player Banned',
     webhook = Webhooks.Ban,
     fields = {
@@ -373,7 +373,7 @@ RegisterNetEvent("ceadmin:server:tp", function(info)
 
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = ("> Option Triggered: %s"):format(info.Option),
     webhook = Webhooks.Teleport,
     fields = {
@@ -425,7 +425,7 @@ RegisterNetEvent("ceadmin:server:frz", function(data)
   end
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = '> Option Triggered: Freeze Player',
     webhook = Webhooks.Freeze,
     fields = {
@@ -547,7 +547,7 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
   end
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = 'Offline Ban',
     webhook = Webhooks.OfflineBan,
     fields = {
@@ -607,7 +607,7 @@ RegisterNetEvent("ceadmin:server:spectate", function(data)
     SetPlayerRoutingBucket(source, targetBucket)
   end
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = ("> Option Triggered: Spectate"),
     webhook = Webhooks.Spectate,
     fields = {
@@ -647,6 +647,33 @@ RegisterNetEvent("ceadmin:server:spectate:end", function()
   end
 end)
 
+RegisterNetEvent("ceadmin:server:jail", function(playerData)
+  local sourcePerms = AdminData[tonumber(source)]
+
+  -- Überprüfe, ob der Spieler die Berechtigung zum Jailen hat
+  if not sourcePerms or not sourcePerms["Jail"] then
+    return DropPlayer(source, Lang:t("cheating_kick_message"))
+  end
+
+  -- Überprüfe die Eingabedaten
+  if not playerData or not playerData.id then
+    return Debug("(Error) [netEvent:ceadmin:server:jail] Die erforderlichen Spielerdaten wurden nicht übergeben.")
+  end
+
+  -- Hole die ID des zu jailenden Spielers aus den übergebenen Daten
+  local targetId = tonumber(playerData.id)
+  if not targetId then
+    return Debug("(Error) [netEvent:ceadmin:server:jail] Ungültige Spieler-ID.")
+  end
+
+  -- Führe die Jail-Funktionalität aus (Platzhalter für Ihre eigene Logik)
+  -- Beispiel: Versetze den Spieler in den Jail-Bereich, ändere seinen Status usw.
+  -- ...
+  
+  -- Optional: Senden einer Bestätigung zurück zum Client
+  -- TriggerClientEvent("ceadmin:client:jailSuccess", source, { id = targetId })
+end)
+
 RegisterNetEvent("ceadmin:server:unban", function(data)
   local sourcePerms = AdminData[tonumber(source)]
 
@@ -684,7 +711,7 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
 
   if found then
     discordLog({
-      title = '[V] Admin Menu Logs',
+      title = '[CE] Admin Menu Logs',
       description = ("Player Unbanned"),
       webhook = Webhooks.Unban,
       fields = {
