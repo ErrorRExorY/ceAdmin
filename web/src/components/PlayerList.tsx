@@ -210,27 +210,25 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
           return (
             <DropdownMenu key={player.id}>
               <DropdownMenuTrigger className="rounded max-h-[40px] flex items-center justify-between text-left p-2 font-semibold bg-black outline-none whitespace-break-spaces">
-                {player.isStaff ? (
-                  <ShieldCheck
-                    strokeWidth={2}
-                    size="19px"
-                    className="mr-1 text-blue-500"
-                  />
-                ) : (
-                  ""
-                )}
-                {player.name}{" "}
-                <span
-                  className={`float-right text-xs ${
-                    cached ? "bg-red-600" : "bg-green-600"
-                  } rounded p-1 bg-opacity-50 text-white font-bold font-inter`}
-                  style={{
-                    maxWidth: "250px",
-                  }}
-                >
-                  ID: {player.id} | Bucket: {player.bucket}
-                </span>
-              </DropdownMenuTrigger>
+                  {player.isStaff ? (
+                    <ShieldCheck
+                      strokeWidth={2}
+                      size="19px"
+                      className="mr-1 text-blue-500"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  <div className="flex-grow">{player.name}</div> 
+                  <div className="flex-shrink-0 flex space-x-1">
+                    <span className="text-xs bg-green-600 rounded p-1 bg-opacity-50 text-white font-bold font-inter">
+                      ID: {player.id}
+                    </span>
+                    <span className="text-xs bg-blue-600 rounded p-1 bg-opacity-50 text-white font-bold font-inter">
+                      Bucket: {player.bucket}
+                    </span>
+                  </div>
+                </DropdownMenuTrigger>
               <DropdownMenuContent className="border-none font-semibold rounded coolstuff font-inter">
                 <DropdownMenuLabel
                   className="font-bold whitespace-break-spaces"
