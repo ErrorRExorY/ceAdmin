@@ -39,6 +39,7 @@ Config = {
         NoClip = true,
         Heal = true,
         Armor = true,
+        Jail = true,
         ["Player Names"] = true,
         ["Car Wipe"] = true
       }
@@ -60,6 +61,7 @@ Config = {
         NoClip = true,
         Heal = true,
         Armor = true,
+        Jail = true,
         ["Player Names"] = true,
         ["Car Wipe"] = true
       }
