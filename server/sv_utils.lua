@@ -106,7 +106,7 @@ discordLog = function(args)
     description = args.description or '',
     timestamp = os.date('!%Y-%m-%dT%H:%M:%S'),
     footer = Config.Embed.footer or {},
-    image = { url = "https://i.imgur.com/XuuQq8V.png" } -- [V] Admin Menu Banner
+    image = { url = "https://i.gyazo.com/f98fa5919b3cd2cb6bf262d66070d1eb.png" } -- [CE] Admin Menu Banner
   }
 
   if type(args.fields) == 'table' and #args.fields >= 1 then
@@ -132,7 +132,7 @@ end
 versionCheck = function(repository)
   local resource = GetInvokingResource() or GetCurrentResourceName()
 
-  local currentVersion = 'v1.0.0'
+  local currentVersion = 'v1.0.9'
 
   if currentVersion then
     currentVersion = currentVersion:match('%d+%.%d+%.%d+')
