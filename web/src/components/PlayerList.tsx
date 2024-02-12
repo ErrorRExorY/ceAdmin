@@ -11,6 +11,7 @@ import { useToast } from "./ui/use-toast";
 import {
   ArrowLeftRight,
   ArrowRightLeft,
+  BadgeJapaneseYen,
   Fingerprint,
   Gavel,
   Glasses,
@@ -200,6 +201,18 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
     setKickReason("");
     hideNui();
   };
+
+  const fetchJailUser = (player: any) => {
+    // Hier können Sie Logik hinzufügen, um den Spieler zu "jailen"
+    // Zum Beispiel könnten Sie eine Anfrage an Ihren Server schicken
+    fetchNui("ceadmin:client:jail", {
+      target_id: player.id,
+      // Weitere Daten können hier übergeben werden, z.B. die Dauer des Jail
+    });
+  
+    // NUI verbergen nach dem Aufruf
+    hideNui();
+  };
   return (
     <>
       <div className="grid grid-cols-4 gap-5 mt-1 px-1 overflow-y-scroll overflow-x-hidden max-h-[60vh] w-[50vw] z-20 rounded text-white">
@@ -336,6 +349,14 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                     >
                       <Glasses size="16px" className="mr-1" />
                       Zuschauen
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="rounded"
+                      disabled={!sourcePerms.Jail} // Stellen Sie sicher, dass die Berechtigung für Jail vorhanden ist
+                      onSelect={() => fetchJailUser(player)}
+                    >
+                      <BadgeJapaneseYen size="16px" className="mr-1" /> 
+                      Jail
                     </DropdownMenuItem>
                   </>
                 )}
