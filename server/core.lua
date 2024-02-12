@@ -50,6 +50,9 @@ SetTimeout(5000, function()
 			local playerData = CPlayer:new(player)
 
 			PlayerList[tonumber(player)] = playerData
+		else 
+			PlayerList[tonumber(player)].bucket = GetPlayerRoutingBucket(player)
+			end
 		end
 	end)
 end)
