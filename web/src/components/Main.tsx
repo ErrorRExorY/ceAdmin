@@ -676,7 +676,7 @@ const Main: React.FC = () => {
                         border: "2px solid #059669",
                         borderColor: "#059669",
                       }}
-                      placeholder="Search..."
+                      placeholder="Suchen..."
                       value={cacheSearchQuery}
                       onChange={(e) => {
                         setCacheSearchQuery(e.target.value);

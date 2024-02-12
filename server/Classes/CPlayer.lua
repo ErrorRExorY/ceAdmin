@@ -11,6 +11,8 @@ function CPlayer:new(player)
 
   local discordId = GetDiscordID(player)
   local playerName = GetPlayerName(player)
+  
+  local bucket = GetPlayerRoutingBucket(player)
 
   if not Config.UseDiscordRestAPI then
     for i = 1, #Config.PermissionSystem do
@@ -48,6 +50,7 @@ function CPlayer:new(player)
   local obj = {
     name = playerName,
     id = player,
+    bucket = bucket,
     identifiers = GetPlayerIdentifiersWithoutIP(player),
     tokens = GetPlayerTokens(player),
     isStaff = isStaff,

@@ -68,6 +68,7 @@ interface PlayerData {
   identifiers: any;
   tokens: any;
   isStaff: boolean;
+  bucket: number | null;
 }
 
 interface Props {
@@ -227,7 +228,7 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                     maxWidth: "250px",
                   }}
                 >
-                  ID: {player.id}
+                  ID: {player.id} | Bucket: {player.bucket}
                 </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="border-none font-semibold rounded coolstuff font-inter">
