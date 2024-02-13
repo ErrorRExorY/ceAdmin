@@ -174,7 +174,7 @@ end)
 -- Command Suggestions
 TriggerEvent('chat:addSuggestions', {
   {
-    name = '/kick',
+    name = '/cekick',
     help = '[Admin Only]',
     params = {
       { name = "player", help = "Spieler ID (Benötigt)" },
@@ -182,7 +182,7 @@ TriggerEvent('chat:addSuggestions', {
     }
   },
   {
-    name = '/ban',
+    name = '/ceban',
     help = 'Dies bannt einen Spieler permanent. [Admin Only]',
     params = {
       { name = "player", help = "Spieler ID (Benötigt)" },
@@ -190,14 +190,14 @@ TriggerEvent('chat:addSuggestions', {
     }
   },
   {
-    name = '/goto',
+    name = '/cegoto',
     help = 'Teleportiere dich zum Spieler [Admin Only]',
     params = {
       { name = "player", help = "Spieler ID (Benötigt)" },
     }
   },
   {
-    name = '/bring',
+    name = '/cebring',
     help = 'Hole den Spieler zu dir. [Admin Only]',
     params = {
       { name = "player", help = "Spieler ID (Benötigt)" },
