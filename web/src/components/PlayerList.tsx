@@ -378,6 +378,14 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       <Glasses size="16px" className="mr-1" />
                       Zuschauen
                     </DropdownMenuItem>
+                    <DropdownMenuItem
+                    className="rounded mb-1"
+                    disabled={!sourcePerms.Jail}
+                    onSelect={() => setJailModalOpen(true)}
+                  >
+                    <Gavel size="16px" className="mr-1" />
+                    Jail
+                  </DropdownMenuItem>
                   </>
                 )}
                 <div className="flex flex-row gap-2">
