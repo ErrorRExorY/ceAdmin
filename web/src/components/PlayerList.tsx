@@ -378,65 +378,6 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       <Glasses size="16px" className="mr-1" />
                       Zuschauen
                     </DropdownMenuItem>
-                    <Dialog open={jailModalOpen} onOpenChange={setJailModalOpen}>
-                    <DialogTrigger asChild disabled={!sourcePerms.Jail}>
-                      <Button color="danger" style={{ borderColor: "gray" }}>
-                        <Gavel size="16px" className="mr-1" /> Jail
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:max-w-[525px] text-white rounded border-none">
-                      <DialogHeader>
-                        <DialogTitle>Jail [{player.id}] | {player.name}?</DialogTitle>
-                        <DialogDescription>Gebe einen Grund und die Länge an.</DialogDescription>
-                      </DialogHeader>
-                      <div className="grid gap-4 py-4">
-                        <div className="flex items-center gap-1">
-                          <Label htmlFor="jailReason" className="text-right">
-                            Grund
-                          </Label>
-                          <Input
-                            id="jailReason"
-                            onChange={(e) => setJailReason(e.target.value)}
-                            className="rounded"
-                          />
-                          <Select
-                            onValueChange={setJailLength}
-                            required
-                          >
-                            <SelectTrigger className="w-[180px] outline-none rounded">
-                              <SelectValue placeholder="Länge" />
-                            </SelectTrigger>
-                            <SelectContent className="border outline-none rounded font-roboto" style={{ borderColor: "gray" }}>
-                            <SelectItem value="1 Hour">1 Stunde</SelectItem>
-                              <SelectItem value="3 Hours">3 Stunden</SelectItem>
-                              <SelectItem value="6 Hours">6 Stunden</SelectItem>
-                              <SelectItem value="12 Hours">12 Studen</SelectItem>
-                              <SelectItem value="1 Day">1 Tag</SelectItem>
-                              <SelectItem value="3 Days">3 Tage</SelectItem>
-                              <SelectItem value="1 Week">1 Woche</SelectItem>
-                              <SelectItem value="1 Month">1 Monat</SelectItem>
-                              <SelectItem value="3 Months">3 Monate</SelectItem>
-                              <SelectItem value="6 Months">6 Monate</SelectItem>
-                              <SelectItem value="1 Year">1 Jahr</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                      <DialogFooter>
-                        <Button
-                          color="danger"
-                          type="submit"
-                          onClick={() => {
-                            setJailModalOpen(false);
-                            fetchJailUser(player); // Stelle sicher, dass diese Funktion entsprechend implementiert ist
-                          }}
-                          className="rounded outline-none"
-                        >
-                          Bestätigen
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
                   </>
                 )}
                 <div className="flex flex-row gap-2">
