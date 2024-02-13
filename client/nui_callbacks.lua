@@ -151,3 +151,16 @@ RegisterNuiCallback("ceadmin:nui_cb:unban:global", function(data)
 
   TriggerServerEvent("ceadmin:server:unban", data)
 end)
+
+RegisterNuiCallback("ceadmin:nui_cb:jail", function(data, cb)
+  if not next(data) then
+    return Debug("(Error) [ceadmin:nui_cb:jail] data param is null.")
+  end
+
+  if tonumber(data.target_id) == GetPlayerServerId(PlayerId()) then
+    return Notify("What the fluff dude, you can't ban yourself :o")
+  end
+
+  TriggerServerEvent("ceadmin:server:jail", data)
+  cb({})
+end)

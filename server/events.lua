@@ -650,28 +650,112 @@ end)
 RegisterNetEvent("ceadmin:server:jail", function(data)
   local sourcePerms = AdminData[tonumber(source)]
 
-  -- Überprüfe, ob der Spieler die Berechtigung zum Jailen hat
-  if not sourcePerms or not sourcePerms["Jail"] then
+  if not sourcePerms or not sourcePerms["Ban"] then
     return DropPlayer(source, Lang:t("cheating_kick_message"))
   end
 
-  -- Überprüfe die Eingabedaten
-  if not data or not data.id then
-    return Debug("(Error) [netEvent:ceadmin:server:jail] Die erforderlichen Spielerdaten wurden nicht übergeben.")
+  if not data.target_id then
+    return Debug("(Error) [netEvent:ceadmin:server:b] target is null")
   end
 
-  -- Hole die ID des zu jailenden Spielers aus den übergebenen Daten
-  local targetId = tonumber(data.id)
-  if not targetId then
-    return Debug("(Error) [netEvent:ceadmin:server:jail] Ungültige Spieler-ID.")
+  local targetPed = GetPlayerPed(data.target_id)
+
+  if tostring(targetPed) == "0" then
+    return showNotification(source, "Player isn't online.")
   end
 
-  -- Führe die Jail-Funktionalität aus (Platzhalter für Ihre eigene Logik)
-  -- Beispiel: Versetze den Spieler in den Jail-Bereich, ändere seinen Status usw.
-  -- ...
-  
-  -- Optional: Senden einer Bestätigung zurück zum Client
-  -- TriggerClientEvent("ceadmin:client:jailSuccess", source, { id = targetId })
+
+  -- local JailOsTime = os.time()
+  -- local UnjailOsTime = (JailOsTime + (JailLengths[data.length]))
+  -- local jailDate = os.date("%x")
+  -- local unjailDate = os.date('%x (%X)', UnbanOsTime)
+  local targetName = (GetPlayerName(data.target_id) or "unknown")
+  local targetId = data.target_id
+
+  local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  local rint = math.random(1, #chars)
+  local rchar = chars:sub(rint, rint)
+
+  -- local banID = tostring(rchar .. #banList + 1)
+
+  local JailData = {
+    StaffMember = GetPlayerName(source) or "Unknown",
+    playerName = GetPlayerName(data.target_id) or "Unknown",
+    identifiers = GetPlayerIdentifiersWithoutIP(data.target_id),
+    tokens = GetPlayerTokens(data.target_id),
+    Length = os.time() + JailLengths[data.length],
+    LengthString = data.length,
+    Reason = data.reason
+  }
+
+
+  exports.[ceJail]:jailPlayer(data.target_id, data.length, data.reason)
+
+
+
+  discordLog({
+    title = '[CE] Admin Menu Logs',
+    description = 'Player Jailed',
+    webhook = Webhooks.Ban,
+    fields = {
+      {
+        name = 'Admin',
+        value = ('%s (ID - [%s])'):format(GetPlayerName(source), source),
+        inline = true
+      },
+      {
+        name = 'Admin identifiers',
+        value = organizeIdentifiers(source),
+        inline = false
+      },
+      {
+        name = 'Target',
+        value = ("%s - (ID - %s)"):format(targetName, targetId),
+        inline = false
+      },
+      {
+        name = 'Ban Info',
+        value = ("Reason: %s \n Expires In:(%s) \n"):format(data.reason, data.length),
+        inline = false
+      },
+    }
+  })
+
+  showNotification(source, "Successfully jailed the player!")
+
+  if not Config.ChatMessages then return end
+
+  TriggerClientEvent('chat:addMessage', -1, {
+    template = [[
+                        <div style="
+                                padding: 0.45vw;
+                                margin: 0.55vw;
+                                padding: 10px;
+                                width: 92.50%;
+                                background: rgba(255, 13, 13, 0.6);
+                                box-shadow: 0px 4px 6px 1px rgba(255, 13, 13, 0.27);
+                                border-radius: 4px;
+                        ">
+                            <i class="fa-sharp fa-solid fa-ban"></i>
+                            PLAYER JAILED -
+                            {0}
+                            <br>
+                            {1}
+                            <br>
+                            {2}
+                            <br>
+                            {3}
+                            <br>
+                            {4}
+                        </div>
+                    ]],
+    args = {
+      ("Player: %s (ID - %s)"):format(targetName, targetId),
+      ("Banned by: %s"):format(GetPlayerName(source) or "Error getting player name"),
+      ("Length: %s"):format(data.length),
+      ("Reason: %s"):format(data.reason),
+    }
+  })
 end)
 
 RegisterNetEvent("ceadmin:server:unban", function(data)

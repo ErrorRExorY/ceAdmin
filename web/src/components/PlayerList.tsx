@@ -81,6 +81,11 @@ interface BanData {
   reason: string;
   length: string;
 }
+interface JailData {
+  target_id: number;
+  reason: string;
+  length: string;
+}
 interface OfflineBanData {
   reason: string;
   length: string;
@@ -92,14 +97,22 @@ interface OfflineBanData {
 const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
   const [kickModalOpen, setKickModalOpen] = useState(false);
   const [banModalOpen, setBanModalOpen] = useState(false);
+  const [jailModalOpen, setJailModalOpen] = useState(false);
   const { toast } = useToast();
   const [banData, setBanData] = useState<BanData>({
     target_id: 0,
     length: "",
     reason: "",
   });
+  const [jailData, setJailData] = useState<JailData>({
+    target_id: 0,
+    length: "",
+    reason: "",
+  });
   const [banLength, setBanLength] = useState("");
   const [banReason, setBanReason] = useState("");
+  const [jailLength, setJailLength] = useState("");
+  const [jailReason, setJailReason] = useState("");
   const [kickReason, setKickReason] = useState("");
   const hideNui = () => {
     setBanData({
@@ -200,18 +213,34 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
     setKickReason("");
     hideNui();
   };
-
-  const fetchJailUser = (player: any) => {
-    const data = {
-      target_id: player.id,
-      }
-
-      
-    fetchNui("ceadmin:client:jail", data);
   
-    // NUI verbergen nach dem Aufruf
+  const fetchJailUser = (player: any) => {
+    if (!jailReason || !jailLength) {
+      toast({
+        variant: "destructive",
+        description: "Jail Reason or Length is not specified.",
+        className: "rounded font-roboto",
+      });
+      return;
+    }
+
+    jailData.length = jailLength;
+    jailData.reason = jailReason;
+    jailData.target_id = player.id;
+
+    fetchNui("ceadmin:nui_cb:jail", jailData);
+
+    setJailData({
+      target_id: 0,
+      length: "",
+      reason: "",
+    });
+    setJailLength("");
+    setJailReason("");
     hideNui();
   };
+  
+  
   return (
     <>
       <div className="grid grid-cols-4 gap-5 mt-1 px-1 overflow-y-scroll overflow-x-hidden max-h-[60vh] w-[50vw] z-20 rounded text-white">
@@ -353,8 +382,9 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       className="rounded mb-1"
                       disabled={!sourcePerms.Jail}
                       onSelect={() => {
-                        fetchJailUser(player);
-                        hideNui();
+                        setJailModalOpen(true); // Öffnet das Jail-Modal
+                        // Optional: Bereite hier Jail-Daten vor, wenn nötig
+                        setJailData({ ...jailData, target_id: player.id }); // Setzt die Ziel-ID vor dem Öffnen des Modals
                       }}
                     >
                       <Glasses size="16px" className="mr-1" />
@@ -420,7 +450,65 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       </Dialog>
                     </>
                   )}
-
+                  <Dialog open={jailModalOpen} onOpenChange={setJailModalOpen}>
+                    <DialogTrigger asChild disabled={!sourcePerms.Jail}>
+                      <Button color="danger" style={{ borderColor: "gray" }}>
+                        <Gavel size="16px" className="mr-1" /> Jail
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[525px] text-white rounded border-none">
+                      <DialogHeader>
+                        <DialogTitle>Jail [{player.id}] | {player.name}?</DialogTitle>
+                        <DialogDescription>Gebe einen Grund und die Länge an.</DialogDescription>
+                      </DialogHeader>
+                      <div className="grid gap-4 py-4">
+                        <div className="flex items-center gap-1">
+                          <Label htmlFor="jailReason" className="text-right">
+                            Grund
+                          </Label>
+                          <Input
+                            id="jailReason"
+                            onChange={(e) => setJailReason(e.target.value)}
+                            className="rounded"
+                          />
+                          <Select
+                            onValueChange={setJailLength}
+                            required
+                          >
+                            <SelectTrigger className="w-[180px] outline-none rounded">
+                              <SelectValue placeholder="Länge" />
+                            </SelectTrigger>
+                            <SelectContent className="border outline-none rounded font-roboto" style={{ borderColor: "gray" }}>
+                            <SelectItem value="1 Hour">1 Stunde</SelectItem>
+                              <SelectItem value="3 Hours">3 Stunden</SelectItem>
+                              <SelectItem value="6 Hours">6 Stunden</SelectItem>
+                              <SelectItem value="12 Hours">12 Studen</SelectItem>
+                              <SelectItem value="1 Day">1 Tag</SelectItem>
+                              <SelectItem value="3 Days">3 Tage</SelectItem>
+                              <SelectItem value="1 Week">1 Woche</SelectItem>
+                              <SelectItem value="1 Month">1 Monat</SelectItem>
+                              <SelectItem value="3 Months">3 Monate</SelectItem>
+                              <SelectItem value="6 Months">6 Monate</SelectItem>
+                              <SelectItem value="1 Year">1 Jahr</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          color="danger"
+                          type="submit"
+                          onClick={() => {
+                            setJailModalOpen(false);
+                            fetchJailUser(player); // Stelle sicher, dass diese Funktion entsprechend implementiert ist
+                          }}
+                          className="rounded outline-none"
+                        >
+                          Bestätigen
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                   <Dialog open={banModalOpen} onOpenChange={setBanModalOpen}>
                     <DialogTrigger
                       asChild
