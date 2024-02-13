@@ -378,14 +378,6 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       <Glasses size="16px" className="mr-1" />
                       Zuschauen
                     </DropdownMenuItem>
-                    <DropdownMenuItem
-                    className="rounded mb-1"
-                    disabled={!sourcePerms.Jail}
-                    onSelect={() => setJailModalOpen(true)}
-                  >
-                    <Gavel size="16px" className="mr-1" />
-                    Jail
-                  </DropdownMenuItem>
                   </>
                 )}
                 <div className="flex flex-row gap-2">
@@ -447,6 +439,11 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                     </>
                   )}
                   <Dialog open={jailModalOpen} onOpenChange={setJailModalOpen}>
+                    <DialogTrigger asChild disabled={!sourcePerms.Jail}>
+                      <Button color="danger" style={{ borderColor: "gray" }}>
+                        <Gavel size="16px" className="mr-1" /> Jail
+                      </Button>
+                    </DialogTrigger>
                     <DialogContent className="sm:max-w-[525px] text-white rounded border-none">
                       <DialogHeader>
                         <DialogTitle>Jail [{player.id}] | {player.name}?</DialogTitle>
