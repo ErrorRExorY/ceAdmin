@@ -67,7 +67,7 @@ end
 -- end
 
 organizeIdentifiers = function(target)
-  assert(target, 'Attempted to organaize an invalid targets identifiers.')
+  assert(target, 'Attempted to organize an invalid targets identifiers.')
   local t = {}
 
   local identifiers = GetPlayerIdentifiersWithoutIP(target)
@@ -125,14 +125,14 @@ end
 
 if not LoadResourceFile(GetCurrentResourceName(), 'web/dist/index.html') then
   local err =
-  'Unable to load UI. Build vAdmin or download the latest release.\n https://github.com/ErrorRExorY/ceAdmin/releases/latest'
+  'Unable to load UI. Build ceAdmin or download the latest release.\n https://github.com/ErrorRExorY/ceAdmin/releases/latest'
   print(err)
 end
 
 versionCheck = function(repository)
   local resource = GetInvokingResource() or GetCurrentResourceName()
 
-  local currentVersion = 'v1.1.4'
+  local currentVersion = 'v1.1.5'
 
   if currentVersion then
     currentVersion = currentVersion:match('%d+%.%d+%.%d+')

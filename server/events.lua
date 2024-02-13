@@ -95,7 +95,7 @@ RegisterNetEvent("ceadmin:server:kick", function(data)
       },
       {
         name = 'Kick Info',
-        value = ("Reason: %s"):format(data.reason),
+        value = ("Grund: %s"):format(data.reason),
         inline = false
       },
     }
@@ -116,7 +116,7 @@ RegisterNetEvent("ceadmin:server:kick", function(data)
                         ">
 
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            PLAYER KICKED -
+                            SPIELER GEKICKT -
                             {0}
                             <br>
                             {1}
@@ -186,7 +186,7 @@ RegisterNetEvent("ceadmin:server:options", function(data)
                                     box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.5);
                                     border-radius: 4px;
                             ">
-                              <i class="fas fa-robot"></i> Car wipe in 30 seconds.
+                              <i class="fas fa-robot"></i> Autos werden in 30s entfernt.
                             </div>
                         ]],
       })
@@ -211,7 +211,7 @@ RegisterNetEvent("ceadmin:server:options", function(data)
                                     box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.5);
                                     border-radius: 4px;
                             ">
-                              <i class="fas fa-robot"></i> Car Wipe Completed.
+                              <i class="fas fa-robot"></i> Autos gelöscht.
                             </div>
                         ]],
     })
@@ -232,7 +232,7 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
   local targetPed = GetPlayerPed(data.target_id)
 
   if tostring(targetPed) == "0" then
-    return showNotification(source, "Player isn't online.")
+    return showNotification(source, "Spieler nicht online")
   end
 
 
@@ -304,19 +304,19 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s - (ID - %s)"):format(targetName, targetId),
         inline = false
       },
       {
         name = 'Ban Info',
-        value = ("Reason: %s \n Expires In: %s (%s) \n Ban id: %s"):format(data.reason, unbanDate, data.length, banID),
+        value = ("Grund: %s \n Läuft ab in: %s (%s) \n Ban ID: %s"):format(data.reason, unbanDate, data.length, banID),
         inline = false
       },
     }
   })
 
-  showNotification(source, "Successfully banned the player!")
+  showNotification(source, "Spieler erfolgreich gebannt!")
 
   if not Config.ChatMessages then return end
 
@@ -332,7 +332,7 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
                                 border-radius: 4px;
                         ">
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            PLAYER BANNED -
+                            SPIELER GEBANNT -
                             {0}
                             <br>
                             {1}
@@ -345,11 +345,11 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
                         </div>
                     ]],
     args = {
-      ("Player: %s (ID - %s)"):format(targetName, targetId),
-      ("Banned by: %s"):format(GetPlayerName(source) or "Error getting player name"),
-      ("Length: %s"):format(data.length),
-      ("Reason: %s"):format(data.reason),
-      ("Ban date: %s"):format(banDate)
+      ("Spieler: %s (ID - %s)"):format(targetName, targetId),
+      ("Gebannt von: %s"):format(GetPlayerName(source) or "Error getting player name"),
+      ("Länge: %s"):format(data.length),
+      ("Grund: %s"):format(data.reason),
+      ("Bandatum: %s"):format(banDate)
     }
   })
 end)
@@ -388,7 +388,7 @@ RegisterNetEvent("ceadmin:server:tp", function(info)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s - (ID - %s)"):format(GetPlayerName(info.id) or "Error Getting Target name", info.id),
         inline = false
       },
@@ -440,7 +440,7 @@ RegisterNetEvent("ceadmin:server:frz", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s"):format(GetPlayerName(data.id) or "Error Getting Target name"),
         inline = false
       },
@@ -524,7 +524,7 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
                                 border-radius: 4px;
                         ">
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            OFFLINE BAN -
+                            OFFLINEBAN -
                             {0}
                             <br>
                             {1}
@@ -537,11 +537,11 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
                         </div>
                     ]],
       args = {
-        ("Player: %s"):format(data.playerName or "unknown"),
-        ("Banned by: %s"):format(GetPlayerName(source) or "unknown"),
-        ("Length: %s"):format(data.length),
-        ("Reason: %s"):format(data.reason),
-        ("Ban date: %s"):format(banDate)
+        ("Spieler: %s"):format(data.playerName or "unknown"),
+        ("Gebannt von: %s"):format(GetPlayerName(source) or "unknown"),
+        ("Länge: %s"):format(data.length),
+        ("Grund: %s"):format(data.reason),
+        ("Bandatum: %s"):format(banDate)
       }
     })
   end
@@ -562,17 +562,17 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s"):format(data.playerName),
         inline = false
       },
       {
-        name = 'Target identifiers',
+        name = 'Spieler identifiers',
         value = ("```%s```"):format(table.concat(data.identifiers, "\n")),
         inline = false
       },
       {
-        name = 'Target HWIDs',
+        name = 'Spieler HWIDs',
         value = ("```%s```"):format(table.concat(data.tokens, "\n")),
         inline = false
       },
@@ -608,7 +608,7 @@ RegisterNetEvent("ceadmin:server:spectate", function(data)
   end
   discordLog({
     title = '[CE] Admin Menu Logs',
-    description = ("> Option Triggered: Spectate"),
+    description = ("> Option genutzt: Spectate"),
     webhook = Webhooks.Spectate,
     fields = {
       {
@@ -622,7 +622,7 @@ RegisterNetEvent("ceadmin:server:spectate", function(data)
         inline = false
       },
       {
-        name = "Target Info",
+        name = "Spieler Info",
         value = ("Target name: %s (ID - %s)"):format(GetPlayerName(data.id) or "Error Grabbing Target name", data.id)
       }
     }
@@ -661,7 +661,7 @@ RegisterNetEvent("ceadmin:server:jail", function(data)
   local targetPed = GetPlayerPed(data.target_id)
 
   if tostring(targetPed) == "0" then
-    return showNotification(source, "Player isn't online.")
+    return showNotification(source, "Spieler nicht online.")
   end
 
 
@@ -709,19 +709,19 @@ RegisterNetEvent("ceadmin:server:jail", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s - (ID - %s)"):format(targetName, targetId),
         inline = false
       },
       {
-        name = 'Ban Info',
-        value = ("Reason: %s \n Expires In:(%s) \n"):format(data.reason, data.length),
+        name = 'Jail Info',
+        value = ("Grund: %s \n Läuft ab in:(%s) \n"):format(data.reason, data.length),
         inline = false
       },
     }
   })
 
-  showNotification(source, "Successfully jailed the player!")
+  showNotification(source, "Spieler erfolgreich eingesperrt!")
 
   if not Config.ChatMessages then return end
 
@@ -737,7 +737,7 @@ RegisterNetEvent("ceadmin:server:jail", function(data)
                                 border-radius: 4px;
                         ">
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            PLAYER JAILED -
+                            SPIELER JAILED -
                             {0}
                             <br>
                             {1}
@@ -750,10 +750,10 @@ RegisterNetEvent("ceadmin:server:jail", function(data)
                         </div>
                     ]],
     args = {
-      ("Player: %s (ID - %s)"):format(targetName, targetId),
-      ("Banned by: %s"):format(GetPlayerName(source) or "Error getting player name"),
-      ("Length: %s"):format(data.length),
-      ("Reason: %s"):format(data.reason),
+      ("Spieler: %s (ID - %s)"):format(targetName, targetId),
+      ("Gebannt von: %s"):format(GetPlayerName(source) or "Fehler beim abrufen des Spielernamens"),
+      ("Länge: %s"):format(data.length),
+      ("Grund: %s"):format(data.reason),
     }
   })
 end)
@@ -766,7 +766,7 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
   end
 
   if not data then
-    return showNotification(source, "Ban ID cannot be null!")
+    return showNotification(source, "Ban ID kann nicht NULL sein!")
   end
 
   local banList = LoadBanList()
@@ -796,7 +796,7 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
   if found then
     discordLog({
       title = '[CE] Admin Menu Logs',
-      description = ("Player Unbanned"),
+      description = ("Spieler entbannt"),
       webhook = Webhooks.Unban,
       fields = {
         {
@@ -810,24 +810,24 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
           inline = false
         },
         {
-          name = "Target Info",
+          name = "Spieler Info",
           value = ("Target name: %s"):format(
             targetName or "Error Grabbing Target name"
           )
         },
         {
-          name = "Target identifiers",
+          name = "Spieler identifiers",
           value = ("```%s```"):format(table.concat(targetIdentifiers, "\n"))
         },
         {
-          name = "Target HWIDs",
+          name = "Spieler HWIDs",
           value = ("```%s```"):format(table.concat(targetHwids, "\n"))
         }
       }
     })
 
-    showNotification(source, "Player was found and unbanned!")
+    showNotification(source, "Spieler gefunden und entbannt!")
   else
-    showNotification(source, "Error Player with the specified Ban ID was not found!")
+    showNotification(source, "Fehler! Spieler mit dieser Ban-ID nicht gefunden.")
   end
 end)

@@ -13,7 +13,7 @@ end)
 
 RegisterNetEvent("ceadmin:spectate:start", function(targetServerId, targetCoords)
   if targetServerId == GetPlayerServerId(PlayerId()) then
-    return Notify("Cannot spectate yourself dummy!")
+    return Notify("Du kannst dir nicht selbst zuschauen!")
   end
 
 
@@ -55,7 +55,7 @@ RegisterNetEvent("ceadmin:spectate:start", function(targetServerId, targetCoords
 
     spectatorReturnCoords = nil
     return Notify(
-      "Spectate failed, press F8 and check for any debug/print statements in F8 console before reporting it to a developer.")
+      "Zuschauen fehlgeschlagen. Bitte drücke F8 und achte auf Fehlermeldungen.")
   end
 
 
