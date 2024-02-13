@@ -378,18 +378,6 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       <Glasses size="16px" className="mr-1" />
                       Zuschauen
                     </DropdownMenuItem>
-                    <DropdownMenuItem
-                      className="rounded mb-1"
-                      disabled={!sourcePerms.Jail}
-                      onSelect={() => {
-                        setJailModalOpen(true); // Öffnet das Jail-Modal
-                        // Optional: Bereite hier Jail-Daten vor, wenn nötig
-                        setJailData({ ...jailData, target_id: player.id }); // Setzt die Ziel-ID vor dem Öffnen des Modals
-                      }}
-                    >
-                      <Glasses size="16px" className="mr-1" />
-                      Jail
-                    </DropdownMenuItem>
                   </>
                 )}
                 <div className="flex flex-row gap-2">

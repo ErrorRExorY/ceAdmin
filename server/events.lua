@@ -689,7 +689,7 @@ RegisterNetEvent("ceadmin:server:jail", function(data)
   }
 
 
-  exports.[ceJail]:jailPlayer(data.target_id, data.length, data.reason)
+  exports['ceJail']:jailPlayer(data.target_id, data.length, data.reason)
 
 
 
