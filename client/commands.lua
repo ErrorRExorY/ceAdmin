@@ -9,14 +9,14 @@ RegisterCommand("cenoclip", function()
     end
 
     if not Permissions.NoClip then
-      return Notify("What the fluff dude, you don't have perms :o")
+      return Notify("Du hast nicht die erforderlichen Berechtigungen!")
     end
 
     UIMessage("nui:adminperms", Permissions)
   end
 
   if not Permissions.NoClip then
-    return Notify("What the fluff dude, you don't have perms :o")
+    return Notify("Du hast nicht die erforderlichen Berechtigungen!")
   end
 
   ToggleNoClip()
@@ -39,14 +39,14 @@ RegisterCommand('ceadminmenu', function()
     end
 
     if not Permissions.Menu then
-      return Notify("What the fluff dude, you don't have perms :o")
+      return Notify("Du hast nicht die erforderlichen Berechtigungen!")
     end
 
     UIMessage("nui:adminperms", Permissions)
   end
 
   if not Permissions.Menu then
-    return Notify("What the fluff dude, you don't have perms :o")
+    return Notify("Du hast nicht die erforderlichen Berechtigungen!")
   end
 
   -- ox_lib Soltion
@@ -82,17 +82,17 @@ RegisterCommand("ceban", function(source, args, rawCommand)
   local reason = table.concat(args, " ")
 
   if not Permissions.Ban then
-    return Notify("Insufficient permissions.")
+    return Notify("Du hast nicht die erforderlichen Berechtigungen!.")
   end
 
   if not targetID then return Notify("Target id is null.") end
 
   if tonumber(targetID) == tonumber(GetPlayerServerId(PlayerId())) then
-    return Notify("What the fluff dude, you can't ban yourself!")
+    return Notify("Du kannst dich nicht selber bannen!")
   end
 
   if not reason or #reason <= 1 then
-    return Notify("Error: Reason is too short!")
+    return Notify("Fehler: Grund ist zu kurz!")
   end
 
   local data = {
@@ -109,11 +109,11 @@ RegisterCommand("cegoto", function(_source, args, rawCommand)
 
 
   if not Permissions["Teleport"] then
-    return Notify("Insufficient permissions.")
+    return Notify("Du hast nicht die erforderlichen Berechtigungen!.")
   end
 
   if not targetID then
-    return Notify("Player ID is required.")
+    return Notify("Player ID wird benötigt.")
   end
 
   TriggerServerEvent("ceadmin:server:tp", {
@@ -127,11 +127,11 @@ RegisterCommand("cebring", function(_source, args, rawCommand)
 
 
   if not Permissions["Teleport"] then
-    return Notify("Insufficient permissions.")
+    return Notify("Du hast nicht die erforderlichen Berechtigungen!.")
   end
 
   if not targetID then
-    return Notify("Target ID is required.")
+    return Notify("Target ID wird benötigt.")
   end
 
   TriggerServerEvent("ceadmin:server:tp", {
@@ -148,19 +148,19 @@ RegisterCommand("cekick", function(source, args, rawCommand)
   local reason = table.concat(args, " ")
 
   if not Permissions["Kick"] then
-    return Notify("Insufficient permissions.")
+    return Notify("Du hast nicht die erforderlichen Berechtigungen!.")
   end
 
   if not targetID then
-    return Notify("Target ID is required.")
+    return Notify("Target ID wird benötigt.")
   end
 
   if not reason then
-    return Notify("Reason for the kick required.")
+    return Notify("Grund für den Kick benötigt.")
   end
 
   if tonumber(targetID) == tonumber(GetPlayerServerId(PlayerId())) then
-    return Notify("What the fluff dude, you can't kick yourself!")
+    return Notify("Du kannst dich nicht selber kicken!")
   end
 
 
@@ -177,30 +177,30 @@ TriggerEvent('chat:addSuggestions', {
     name = '/kick',
     help = '[Admin Only]',
     params = {
-      { name = "player", help = "Player ID (Required)" },
-      { name = "reason", help = "Input a reason for the kick (Required)" }
+      { name = "player", help = "Spieler ID (Benötigt)" },
+      { name = "reason", help = "Grund für den Kick (Benötigt)" }
     }
   },
   {
     name = '/ban',
-    help = 'This will permanently ban the selected player. [Admin Only]',
+    help = 'Dies bannt einen Spieler permanent. [Admin Only]',
     params = {
-      { name = "player", help = "Player ID (Required)" },
-      { name = "reason", help = "Input a reason for the ban (Required)" }
+      { name = "player", help = "Spieler ID (Benötigt)" },
+      { name = "reason", help = "Grund für den Ban (Benötigt)" }
     }
   },
   {
     name = '/goto',
-    help = 'Teleport to the selected player. [Admin Only]',
+    help = 'Teleportiere dich zum Spieler [Admin Only]',
     params = {
-      { name = "player", help = "Player ID (Required)" },
+      { name = "player", help = "Spieler ID (Benötigt)" },
     }
   },
   {
     name = '/bring',
-    help = 'Bring the selected player to you. [Admin Only]',
+    help = 'Hole den Spieler zu dir. [Admin Only]',
     params = {
-      { name = "player", help = "Player ID (Required)" },
+      { name = "player", help = "Spieler ID (Benötigt)" },
     }
   }
 })
