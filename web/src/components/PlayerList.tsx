@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 
 import "./Main.css";
@@ -82,11 +81,6 @@ interface BanData {
   reason: string;
   length: string;
 }
-interface JailData {
-  target_id: number;
-  reason: string;
-  length: string;
-}
 interface OfflineBanData {
   reason: string;
   length: string;
@@ -104,15 +98,8 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
     length: "",
     reason: "",
   });
-  const [jailData, setJailData] = useState<JailData>({
-    target_id: 0,
-    length: "",
-    reason: "",
-  });
   const [banLength, setBanLength] = useState("");
   const [banReason, setBanReason] = useState("");
-  const [jailLength, setJailLength] = useState("");
-  const [jailReason, setJailReason] = useState("");
   const [kickReason, setKickReason] = useState("");
   const hideNui = () => {
     setBanData({
@@ -213,34 +200,18 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
     setKickReason("");
     hideNui();
   };
-  
+
   const fetchJailUser = (player: any) => {
-    if (!jailReason || !jailLength) {
-      toast({
-        variant: "destructive",
-        description: "Jail Reason or Length is not specified.",
-        className: "rounded font-roboto",
-      });
-      return;
-    }
-
-    jailData.length = jailLength;
-    jailData.reason = jailReason;
-    jailData.target_id = player.id;
-
-    fetchNui("ceadmin:nui_cb:jail", jailData);
-
-    setJailData({
-      target_id: 0,
-      length: "",
-      reason: "",
+    // Hier können Sie Logik hinzufügen, um den Spieler zu "jailen"
+    // Zum Beispiel könnten Sie eine Anfrage an Ihren Server schicken
+    fetchNui("ceadmin:client:jail", {
+      target_id: player.id,
+      // Weitere Daten können hier übergeben werden, z.B. die Dauer des Jail
     });
-    setJailLength("");
-    setJailReason("");
+  
+    // NUI verbergen nach dem Aufruf
     hideNui();
   };
-  
-  
   return (
     <>
       <div className="grid grid-cols-4 gap-5 mt-1 px-1 overflow-y-scroll overflow-x-hidden max-h-[60vh] w-[50vw] z-20 rounded text-white">
