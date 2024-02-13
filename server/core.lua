@@ -125,7 +125,7 @@ AddEventHandler("playerConnecting", function(_name, _setKickReason, deferrals)
 
 	deferrals.defer()
 	Wait(50)
-	deferrals.update("Ich gucke ob du KEK gebannt bist xD...")
+	deferrals.update("Ich gucke ob du gebannt bist...")
 
 	for banIndex, banEntry in pairs(banlist) do
 		local identifierCheck = loopThroughIdentifiers(banEntry.identifiers, identifiers)
@@ -136,7 +136,7 @@ AddEventHandler("playerConnecting", function(_name, _setKickReason, deferrals)
 
 			if remainingTime <= 0 then
 				table.remove(banlist, banIndex)
-				deferrals.update("Wurdest entbannt du Affe.")
+				deferrals.update("Du wurdest entbannt.")
 			else
 				local kickReason = (
 					Lang:t("ban_info", {
