@@ -382,7 +382,8 @@ const PlayerList: React.FC<Props> = ({ playerList, cached, sourcePerms }) => {
                       className="rounded mb-1"
                       disabled={!sourcePerms.Jail}
                       onSelect={() => {
-                        
+                        fetchJailUser(player);
+                        hideNui();
                       }}
                     >
                       <Glasses size="16px" className="mr-1" />
