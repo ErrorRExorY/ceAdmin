@@ -831,7 +831,3 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
     showNotification(source, "Fehler! Spieler mit dieser Ban-ID nicht gefunden.")
   end
 end)
-
-function sendMessage(target, message)
-  TriggerClientEvent('esx:showNotification', target, message)
-end

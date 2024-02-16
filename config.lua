@@ -20,10 +20,6 @@ Config = {
     ["Player Names"] = false,
     ["Car Wipe"] = false
   },
-  AuthorizedRanks = {
-    'admin',
-    'dev'
-  },
   PermissionSystem = {
     -- Revive isn't really a thing since this script is standalone,the back end logic for it is there but i removed the front-end option for it, could be re-added in the future if i decide to add optional support for frameworks.
     {

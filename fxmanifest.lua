@@ -13,7 +13,6 @@ shared_scripts {
 	"shared/locale.lua",
 	"locales/en.lua",
 	'shared/utils.lua',
-	'@es_extended/locale.lua',
 }
 
 client_scripts {
@@ -36,7 +35,6 @@ server_scripts {
 	"server/events.lua",
 	"server/core.lua",
 	"server/commands.lua",
-	'@es_extended/locale.lua',
 }
 
 files {
