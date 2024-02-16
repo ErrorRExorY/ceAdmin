@@ -50,6 +50,7 @@ SetTimeout(5000, function()
 			local playerData = CPlayer:new(player)
 
 			PlayerList[tonumber(player)] = playerData
+			PlayerList[tonumber(player)].bucket = GetPlayerRoutingBucket(player)
 		end
 	end)
 end)
@@ -124,7 +125,7 @@ AddEventHandler("playerConnecting", function(_name, _setKickReason, deferrals)
 
 	deferrals.defer()
 	Wait(50)
-	deferrals.update("Checking if the user is banned...")
+	deferrals.update("Ich gucke ob du gebannt bist...")
 
 	for banIndex, banEntry in pairs(banlist) do
 		local identifierCheck = loopThroughIdentifiers(banEntry.identifiers, identifiers)
@@ -135,7 +136,7 @@ AddEventHandler("playerConnecting", function(_name, _setKickReason, deferrals)
 
 			if remainingTime <= 0 then
 				table.remove(banlist, banIndex)
-				deferrals.update("Ban has expired, unbanning user.")
+				deferrals.update("Du wurdest entbannt.")
 			else
 				local kickReason = (
 					Lang:t("ban_info", {

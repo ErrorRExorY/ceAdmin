@@ -420,7 +420,7 @@ const Main: React.FC = () => {
                     })
                   }
                 >
-                  <Hammer size={"16px"} className="mr-1" /> Ban List
+                  <Hammer size={"16px"} className="mr-1" /> Ban-Liste
                 </button>
                 <DropdownMenu>
                   <DropdownMenuTrigger
@@ -465,20 +465,20 @@ const Main: React.FC = () => {
                           className="w-full"
                         >
                           <ShieldX size="16px" className="mr-1" />
-                          Unban
+                          Entbannen
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[525px] text-white rounded border-none">
                         <DialogHeader>
-                          <DialogTitle>Unban Player</DialogTitle>
+                          <DialogTitle>Entbanne einen Spieler</DialogTitle>
                           <DialogDescription>
-                            Input the players Ban ID.
+                            Gib die Ban-ID ein.
                           </DialogDescription>
                         </DialogHeader>
                         <div className="grid gap-4 py-4">
                           <div className="flex items-center gap-1">
                             <Label htmlFor="name" className="text-right">
-                              Ban ID:
+                              Ban-ID:
                             </Label>
 
                             <Input
@@ -500,7 +500,7 @@ const Main: React.FC = () => {
                             }}
                             className="rounded outline-none"
                           >
-                            Confirm
+                            Bestätigen
                           </Button>
                         </DialogFooter>
                       </DialogContent>
@@ -514,10 +514,10 @@ const Main: React.FC = () => {
                       borderColor: "#059669",
                     }}
                   >
-                    <ShieldCheck size="16px" className="mr-1" /> Self Options
+                    <ShieldCheck size="16px" className="mr-1" /> Eigenoptionen
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="rounded border-none font-bold font-inter">
-                    <DropdownMenuLabel>Self Options</DropdownMenuLabel>
+                    <DropdownMenuLabel>Eigenoptionen</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       className="text-xs"
@@ -528,7 +528,7 @@ const Main: React.FC = () => {
                       }}
                     >
                       <Cross size={"16px"} className="mr-1" />
-                      Heal
+                      Heilen
                     </DropdownMenuItem>
 
                     <DropdownMenuItem
@@ -551,7 +551,7 @@ const Main: React.FC = () => {
                       }}
                     >
                       <ShieldHalf size={"16px"} className="mr-1" />
-                      Armor
+                      Rüstung
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className="text-xs"
@@ -582,7 +582,7 @@ const Main: React.FC = () => {
                     })
                   }
                 >
-                  <UserX2 size={"16px"} className="mr-1" /> Player Cache
+                  <UserX2 size={"16px"} className="mr-1" /> Spieler Cache
                 </button>
               </div>
               {currentTab.Players ? (
@@ -647,7 +647,7 @@ const Main: React.FC = () => {
                         border: "2px solid #059669",
                         borderColor: "#059669",
                       }}
-                      placeholder="Search..."
+                      placeholder="Suchen..."
                       // ref={searchRef}
                       value={banListSearchQuery}
                       onChange={(e) => {
@@ -676,7 +676,7 @@ const Main: React.FC = () => {
                         border: "2px solid #059669",
                         borderColor: "#059669",
                       }}
-                      placeholder="Search..."
+                      placeholder="Suchen..."
                       value={cacheSearchQuery}
                       onChange={(e) => {
                         setCacheSearchQuery(e.target.value);

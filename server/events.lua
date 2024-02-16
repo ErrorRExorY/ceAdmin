@@ -2,7 +2,13 @@ RegisterNetEvent("ceadmin:plist", function()
   if not source then
     return Debug("(Error) [netEvent:ceadmin:plist] source is nil/null")
   end
-
+  for playerId, playerData in pairs(PlayerList) do
+    -- Überprüfe, ob die Spieler-ID eine gültige Nummer ist
+    if tonumber(playerId) then
+      -- Aktualisiere die Bucket-ID des Spielers
+      PlayerList[playerId].bucket = GetPlayerRoutingBucket(tonumber(playerId))
+    end
+  end
 
   -- Update it only for the player that called it. (Default)
   TriggerClientEvent("UIMessage", source, "nui:plist", PlayerList)
@@ -68,7 +74,7 @@ RegisterNetEvent("ceadmin:server:kick", function(data)
     }))
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = 'Player Kicked',
     webhook = Webhooks.Kick,
     fields = {
@@ -89,7 +95,7 @@ RegisterNetEvent("ceadmin:server:kick", function(data)
       },
       {
         name = 'Kick Info',
-        value = ("Reason: %s"):format(data.reason),
+        value = ("Grund: %s"):format(data.reason),
         inline = false
       },
     }
@@ -110,7 +116,7 @@ RegisterNetEvent("ceadmin:server:kick", function(data)
                         ">
 
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            PLAYER KICKED -
+                            SPIELER GEKICKT -
                             {0}
                             <br>
                             {1}
@@ -133,7 +139,7 @@ RegisterNetEvent("ceadmin:server:options", function(data)
   end
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = ("> Option Triggered: %s"):format((data.carWipe and "Car Wipe" or data.clearChat and "Clear Chat")),
     webhook = Webhooks.Misc,
     fields = {
@@ -180,7 +186,7 @@ RegisterNetEvent("ceadmin:server:options", function(data)
                                     box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.5);
                                     border-radius: 4px;
                             ">
-                              <i class="fas fa-robot"></i> Car wipe in 30 seconds.
+                              <i class="fas fa-robot"></i> Autos werden in 30s entfernt.
                             </div>
                         ]],
       })
@@ -205,7 +211,7 @@ RegisterNetEvent("ceadmin:server:options", function(data)
                                     box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.5);
                                     border-radius: 4px;
                             ">
-                              <i class="fas fa-robot"></i> Car Wipe Completed.
+                              <i class="fas fa-robot"></i> Autos gelöscht.
                             </div>
                         ]],
     })
@@ -226,7 +232,7 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
   local targetPed = GetPlayerPed(data.target_id)
 
   if tostring(targetPed) == "0" then
-    return showNotification(source, "Player isn't online.")
+    return showNotification(source, "Spieler nicht online")
   end
 
 
@@ -283,7 +289,7 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
   SaveBanList(banList)
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = 'Player Banned',
     webhook = Webhooks.Ban,
     fields = {
@@ -298,19 +304,19 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s - (ID - %s)"):format(targetName, targetId),
         inline = false
       },
       {
         name = 'Ban Info',
-        value = ("Reason: %s \n Expires In: %s (%s) \n Ban id: %s"):format(data.reason, unbanDate, data.length, banID),
+        value = ("Grund: %s \n Läuft ab in: %s (%s) \n Ban ID: %s"):format(data.reason, unbanDate, data.length, banID),
         inline = false
       },
     }
   })
 
-  showNotification(source, "Successfully banned the player!")
+  showNotification(source, "Spieler erfolgreich gebannt!")
 
   if not Config.ChatMessages then return end
 
@@ -326,7 +332,7 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
                                 border-radius: 4px;
                         ">
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            PLAYER BANNED -
+                            SPIELER GEBANNT -
                             {0}
                             <br>
                             {1}
@@ -339,11 +345,11 @@ RegisterNetEvent("ceadmin:server:ban", function(data)
                         </div>
                     ]],
     args = {
-      ("Player: %s (ID - %s)"):format(targetName, targetId),
-      ("Banned by: %s"):format(GetPlayerName(source) or "Error getting player name"),
-      ("Length: %s"):format(data.length),
-      ("Reason: %s"):format(data.reason),
-      ("Ban date: %s"):format(banDate)
+      ("Spieler: %s (ID - %s)"):format(targetName, targetId),
+      ("Gebannt von: %s"):format(GetPlayerName(source) or "Error getting player name"),
+      ("Länge: %s"):format(data.length),
+      ("Grund: %s"):format(data.reason),
+      ("Bandatum: %s"):format(banDate)
     }
   })
 end)
@@ -367,7 +373,7 @@ RegisterNetEvent("ceadmin:server:tp", function(info)
 
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = ("> Option Triggered: %s"):format(info.Option),
     webhook = Webhooks.Teleport,
     fields = {
@@ -382,7 +388,7 @@ RegisterNetEvent("ceadmin:server:tp", function(info)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s - (ID - %s)"):format(GetPlayerName(info.id) or "Error Getting Target name", info.id),
         inline = false
       },
@@ -419,7 +425,7 @@ RegisterNetEvent("ceadmin:server:frz", function(data)
   end
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = '> Option Triggered: Freeze Player',
     webhook = Webhooks.Freeze,
     fields = {
@@ -434,7 +440,7 @@ RegisterNetEvent("ceadmin:server:frz", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s"):format(GetPlayerName(data.id) or "Error Getting Target name"),
         inline = false
       },
@@ -518,7 +524,7 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
                                 border-radius: 4px;
                         ">
                             <i class="fa-sharp fa-solid fa-ban"></i>
-                            OFFLINE BAN -
+                            OFFLINEBAN -
                             {0}
                             <br>
                             {1}
@@ -531,17 +537,17 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
                         </div>
                     ]],
       args = {
-        ("Player: %s"):format(data.playerName or "unknown"),
-        ("Banned by: %s"):format(GetPlayerName(source) or "unknown"),
-        ("Length: %s"):format(data.length),
-        ("Reason: %s"):format(data.reason),
-        ("Ban date: %s"):format(banDate)
+        ("Spieler: %s"):format(data.playerName or "unknown"),
+        ("Gebannt von: %s"):format(GetPlayerName(source) or "unknown"),
+        ("Länge: %s"):format(data.length),
+        ("Grund: %s"):format(data.reason),
+        ("Bandatum: %s"):format(banDate)
       }
     })
   end
 
   discordLog({
-    title = '[V] Admin Menu Logs',
+    title = '[CE] Admin Menu Logs',
     description = 'Offline Ban',
     webhook = Webhooks.OfflineBan,
     fields = {
@@ -556,17 +562,17 @@ RegisterNetEvent("ceadmin:server:offlineban", function(data)
         inline = false
       },
       {
-        name = 'Target',
+        name = 'Spieler',
         value = ("%s"):format(data.playerName),
         inline = false
       },
       {
-        name = 'Target identifiers',
+        name = 'Spieler identifiers',
         value = ("```%s```"):format(table.concat(data.identifiers, "\n")),
         inline = false
       },
       {
-        name = 'Target HWIDs',
+        name = 'Spieler HWIDs',
         value = ("```%s```"):format(table.concat(data.tokens, "\n")),
         inline = false
       },
@@ -601,8 +607,8 @@ RegisterNetEvent("ceadmin:server:spectate", function(data)
     SetPlayerRoutingBucket(source, targetBucket)
   end
   discordLog({
-    title = '[V] Admin Menu Logs',
-    description = ("> Option Triggered: Spectate"),
+    title = '[CE] Admin Menu Logs',
+    description = ("> Option genutzt: Spectate"),
     webhook = Webhooks.Spectate,
     fields = {
       {
@@ -616,7 +622,7 @@ RegisterNetEvent("ceadmin:server:spectate", function(data)
         inline = false
       },
       {
-        name = "Target Info",
+        name = "Spieler Info",
         value = ("Target name: %s (ID - %s)"):format(GetPlayerName(data.id) or "Error Grabbing Target name", data.id)
       }
     }
@@ -641,6 +647,117 @@ RegisterNetEvent("ceadmin:server:spectate:end", function()
   end
 end)
 
+RegisterNetEvent("ceadmin:server:jail", function(data)
+  local sourcePerms = AdminData[tonumber(source)]
+
+  if not sourcePerms or not sourcePerms["Ban"] then
+    return DropPlayer(source, Lang:t("cheating_kick_message"))
+  end
+
+  if not data.target_id then
+    return Debug("(Error) [netEvent:ceadmin:server:b] target is null")
+  end
+
+  local targetPed = GetPlayerPed(data.target_id)
+
+  if tostring(targetPed) == "0" then
+    return showNotification(source, "Spieler nicht online.")
+  end
+
+
+  -- local JailOsTime = os.time()
+  -- local UnjailOsTime = (JailOsTime + (JailLengths[data.length]))
+  -- local jailDate = os.date("%x")
+  -- local unjailDate = os.date('%x (%X)', UnbanOsTime)
+  local targetName = (GetPlayerName(data.target_id) or "unknown")
+  local targetId = data.target_id
+
+  local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  local rint = math.random(1, #chars)
+  local rchar = chars:sub(rint, rint)
+
+  -- local banID = tostring(rchar .. #banList + 1)
+
+  local JailData = {
+    StaffMember = GetPlayerName(source) or "Unknown",
+    playerName = GetPlayerName(data.target_id) or "Unknown",
+    identifiers = GetPlayerIdentifiersWithoutIP(data.target_id),
+    tokens = GetPlayerTokens(data.target_id),
+    Length = os.time() + JailLengths[data.length],
+    LengthString = data.length,
+    Reason = data.reason
+  }
+
+
+  exports['ceJail']:jailPlayer(data.target_id, data.length, data.reason)
+
+
+
+  discordLog({
+    title = '[CE] Admin Menu Logs',
+    description = 'Player Jailed',
+    webhook = Webhooks.Ban,
+    fields = {
+      {
+        name = 'Admin',
+        value = ('%s (ID - [%s])'):format(GetPlayerName(source), source),
+        inline = true
+      },
+      {
+        name = 'Admin identifiers',
+        value = organizeIdentifiers(source),
+        inline = false
+      },
+      {
+        name = 'Spieler',
+        value = ("%s - (ID - %s)"):format(targetName, targetId),
+        inline = false
+      },
+      {
+        name = 'Jail Info',
+        value = ("Grund: %s \n Läuft ab in:(%s) \n"):format(data.reason, data.length),
+        inline = false
+      },
+    }
+  })
+
+  showNotification(source, "Spieler erfolgreich eingesperrt!")
+
+  if not Config.ChatMessages then return end
+
+  TriggerClientEvent('chat:addMessage', -1, {
+    template = [[
+                        <div style="
+                                padding: 0.45vw;
+                                margin: 0.55vw;
+                                padding: 10px;
+                                width: 92.50%;
+                                background: rgba(255, 13, 13, 0.6);
+                                box-shadow: 0px 4px 6px 1px rgba(255, 13, 13, 0.27);
+                                border-radius: 4px;
+                        ">
+                            <i class="fa-sharp fa-solid fa-ban"></i>
+                            SPIELER JAILED -
+                            {0}
+                            <br>
+                            {1}
+                            <br>
+                            {2}
+                            <br>
+                            {3}
+                            <br>
+                            {4}
+                        </div>
+                    ]],
+    args = {
+      ("Spieler: %s (ID - %s)"):format(targetName, targetId),
+      ("Gebannt von: %s"):format(GetPlayerName(source) or "Fehler beim abrufen des Spielernamens"),
+      ("Länge: %s"):format(data.length),
+      ("Grund: %s"):format(data.reason),
+    }
+  })
+end)
+
 RegisterNetEvent("ceadmin:server:unban", function(data)
   local sourcePerms = AdminData[tonumber(source)]
 
@@ -649,7 +766,7 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
   end
 
   if not data then
-    return showNotification(source, "Ban ID cannot be null!")
+    return showNotification(source, "Ban ID kann nicht NULL sein!")
   end
 
   local banList = LoadBanList()
@@ -678,8 +795,8 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
 
   if found then
     discordLog({
-      title = '[V] Admin Menu Logs',
-      description = ("Player Unbanned"),
+      title = '[CE] Admin Menu Logs',
+      description = ("Spieler entbannt"),
       webhook = Webhooks.Unban,
       fields = {
         {
@@ -693,24 +810,28 @@ RegisterNetEvent("ceadmin:server:unban", function(data)
           inline = false
         },
         {
-          name = "Target Info",
+          name = "Spieler Info",
           value = ("Target name: %s"):format(
             targetName or "Error Grabbing Target name"
           )
         },
         {
-          name = "Target identifiers",
+          name = "Spieler identifiers",
           value = ("```%s```"):format(table.concat(targetIdentifiers, "\n"))
         },
         {
-          name = "Target HWIDs",
+          name = "Spieler HWIDs",
           value = ("```%s```"):format(table.concat(targetHwids, "\n"))
         }
       }
     })
 
-    showNotification(source, "Player was found and unbanned!")
+    showNotification(source, "Spieler gefunden und entbannt!")
   else
-    showNotification(source, "Error Player with the specified Ban ID was not found!")
+    showNotification(source, "Fehler! Spieler mit dieser Ban-ID nicht gefunden.")
   end
 end)
+
+function sendMessage(target, message)
+  TriggerClientEvent('esx:showNotification', target, message)
+end
