@@ -61,14 +61,7 @@ RegisterCommand('addhacker', function(source, args)
             local routingBucket = 9999 -- Ein spezieller Routing-Bucket für Hacker
             SetPlayerRoutingBucket(targetId, routingBucket)
             SetRoutingBucketEntityLockdownMode(routingBucket, 'strict') -- Setzen Sie den Lockdown-Modus auf streng
-            ESX.ShowNotification('Spieler: ' .. GetPlayerName(targetId) .. ' wurde in den Lockdown-Routing-Bucket verschoben.')
-
-            -- Aktualisieren Sie die Spielerliste und senden Sie sie an alle Clients
-            local players = {}
-            for _, playerId in ipairs(GetActivePlayers()) do
-                local playerName = GetPlayerName(playerId)
-                local playerRoutingBucket = GetPlayerRoutingBucket(playerId)
-            end
+            sendMessage(source, ('Spieler %s wurde in den Lockdown-Routing-Bucket verschoben.'):format(GetPlayerName(targetId)))
 
         else
             sendMessage(source, '~r~Bitte geben Sie eine gültige Spieler-ID ein!')
@@ -124,34 +117,36 @@ RegisterCommand('spbucket', function(source, args)
 end)
 
 RegisterCommand('spbucketrad', function(source, args)
-    if havePermission(source) then
-        local targetId = args[1] or source
-        local playerName = GetPlayerName(targetId)
-        local routingBucket = tonumber(args[2])
-        local radius = tonumber(args[3]) -- Der Radius, in dem andere Spieler mitgenommen werden sollen
+  if havePermission(source) then
+      local targetId = args[1] or source
+      local playerName = GetPlayerName(targetId)
+      local routingBucket = tonumber(args[2])
+      local radius = tonumber(args[3]) -- Der Radius, in dem andere Spieler mitgenommen werden sollen
 
-        -- Verschieben Sie den Ziel-Spieler in den neuen Routing-Bucket
-        SetPlayerRoutingBucket(targetId, routingBucket)
+      -- Verschieben Sie den Ziel-Spieler in den neuen Routing-Bucket
+      SetPlayerRoutingBucket(targetId, routingBucket)
 
-        -- Holen Sie sich die Position des Ziel-Spielers
-        local targetPos = GetEntityCoords(GetPlayerPed(targetId))
+      -- Holen Sie sich die Position des Ziel-Spielers
+      local targetPos = GetEntityCoords(GetPlayerPed(targetId))
 
-        -- Durchlaufen Sie alle Spieler auf dem Server
-        for _, playerId in ipairs(GetActivePlayers()) do
-            -- Überspringen Sie den Ziel-Spieler
-            if playerId ~= targetId then
-                local playerPos = GetEntityCoords(GetPlayerPed(playerId))
-                -- Wenn der Spieler innerhalb des Radius ist, verschieben Sie ihn in den neuen Routing-Bucket
-                if GetDistanceBetweenCoords(targetPos, playerPos, true) <= radius then
-                    SetPlayerRoutingBucket(playerId, routingBucket)
-                end
-            end
-        end
+      local alleSpieler = GetPlayers() -- Verwende GetPlayers serverseitig
 
-        sendMessage(source, ('Spieler %s und alle Spieler im Radius von %s Einheiten wurden in Routing Bucket %s verschoben.'):format(playerName, radius, routingBucket))
-    else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
-    end
+      -- Durchlaufen Sie alle Spieler auf dem Server
+      for _, playerId in ipairs(alleSpieler) do
+          if playerId ~= tostring(targetId) then
+              local playerPed = GetPlayerPed(playerId)
+              local playerPos = GetEntityCoords(playerPed)
+              -- Wenn der Spieler innerhalb des Radius ist, verschieben Sie ihn in den neuen Routing-Bucket
+              if playerPos and targetPos and GetDistanceBetweenCoords(targetPos, playerPos, true) <= radius then
+                  SetPlayerRoutingBucket(playerId, routingBucket)
+              end
+          end
+      end
+
+      sendMessage(source, ('Spieler %s und alle Spieler im Radius von %s Einheiten wurden in Routing Bucket %s verschoben.'):format(playerName, radius, routingBucket))
+  else
+      sendMessage(source, '~r~You don\'t have permission to do this command!')
+  end
 end)
 
 RegisterCommand('gebucket', function(source, args)
@@ -201,20 +196,3 @@ RegisterCommand('bucketlock', function(source, args, rawCommand)
     end
 
 end)
-
-RegisterCommand('showbuckets', function(source, args)
-    if havePermission(source) then
-        local players = {}
-        for _, playerId in ipairs(GetActivePlayers()) do
-            local playerName = GetPlayerName(playerId)
-            local routingBucket = GetPlayerRoutingBucket(playerId)
-            if routingBucket == 9999 then -- Anzeigen nur für Hacker-Bucket
-                table.insert(players, {name = playerName, bucket = routingBucket})
-            end
-        end
-        TriggerClientEvent('updatePlayerList', source, players)
-    else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
-    end
-end)
-
