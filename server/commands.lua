@@ -153,7 +153,7 @@ RegisterCommand('setbucketpop', function(source, args)
     if havePermission(source) then
         local routingBucket = tonumber(args[1])
         local population = tonumber(args[2])
-        setRoutingBucketPopulation(routingBucket, population)
+        SetRoutingBucketPopulation(routingBucket, population)
         sendMessage(source, ('Bevölkerung für Routing Bucket %s auf %s gesetzt.'):format(routingBucket, population))
     else
         sendMessage(source, '~r~You don\'t have permission to do this command!')
@@ -164,7 +164,7 @@ RegisterCommand('setbucketlock', function(source, args, rawCommand)
     if havePermission(source) then
         local routingBucket = tonumber(args[1])
         local mode = args[2]
-        setRoutingBucketEntityLockdownMode(routingBucket, mode)
+        SetRoutingBucketEntityLockdownMode(routingBucket, mode)
         sendMessage(source, ('Lockdown-Modus für Routing Bucket %s ist jetzt %s.'):format(
             routingBucket, mode
         ))
