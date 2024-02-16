@@ -8,7 +8,7 @@ function CPlayer:new(player)
   end
 
   local isStaff = false
-
+  local bucket = GetPlayerRoutingBucket(player)
   local discordId = GetDiscordID(player)
   local playerName = GetPlayerName(player)
 
@@ -51,6 +51,7 @@ function CPlayer:new(player)
     identifiers = GetPlayerIdentifiersWithoutIP(player),
     tokens = GetPlayerTokens(player),
     isStaff = isStaff,
+    bucket = bucket,
     roles = Config.UseDiscordRestAPI and GetDiscordRoles(discordId, player) or nil,
     avatar = Config.UseDiscordRestAPI and GetDiscordAvatar(discordId, player) or nil
   }

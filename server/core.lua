@@ -14,6 +14,7 @@ AddEventHandler("playerJoining", function(_srcString, _oldID)
 	end
 
 	local playerName = GetPlayerName(source)
+	local bucket = GetPlayerRoutingBucket(source)
 
 	if type(playerName) ~= "string" then
 		return Debug("(Error) [eventHandler:playerJoining] Player name isn't a string, Player name type: ",
