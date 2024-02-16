@@ -67,7 +67,7 @@ end
 -- end
 
 organizeIdentifiers = function(target)
-  assert(target, 'Attempted to organize an invalid targets identifiers.')
+  assert(target, 'Attempted to organaize an invalid targets identifiers.')
   local t = {}
 
   local identifiers = GetPlayerIdentifiersWithoutIP(target)
@@ -106,7 +106,7 @@ discordLog = function(args)
     description = args.description or '',
     timestamp = os.date('!%Y-%m-%dT%H:%M:%S'),
     footer = Config.Embed.footer or {},
-    image = { url = "https://i.gyazo.com/f98fa5919b3cd2cb6bf262d66070d1eb.png" } -- [CE] Admin Menu Banner
+    image = { url = "https://i.imgur.com/XuuQq8V.png" } -- [V] Admin Menu Banner
   }
 
   if type(args.fields) == 'table' and #args.fields >= 1 then
@@ -125,14 +125,14 @@ end
 
 if not LoadResourceFile(GetCurrentResourceName(), 'web/dist/index.html') then
   local err =
-  'Unable to load UI. Build ceAdmin or download the latest release.\n https://github.com/ErrorRExorY/ceAdmin/releases/latest'
+  'Unable to load UI. Build vAdmin or download the latest release.\n https://github.com/ErrorRExorY/ceAdmin/releases/latest'
   print(err)
 end
 
 versionCheck = function(repository)
   local resource = GetInvokingResource() or GetCurrentResourceName()
 
-  local currentVersion = 'v1.1.7'
+  local currentVersion = 'v1.0.0'
 
   if currentVersion then
     currentVersion = currentVersion:match('%d+%.%d+%.%d+')

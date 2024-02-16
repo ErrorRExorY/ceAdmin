@@ -12,7 +12,7 @@ shared_scripts {
 	"config.lua",
 	"shared/locale.lua",
 	"locales/en.lua",
-	'shared/utils.lua',
+	'shared/utils.lua'
 }
 
 client_scripts {
@@ -40,10 +40,4 @@ server_scripts {
 files {
 	'web/dist/index.html',
 	'web/dist/**/*',
-}
-
-escrow_ignore {
-    'sv_config.lua',
-	'config.lua',
-	'locales/**';
 }

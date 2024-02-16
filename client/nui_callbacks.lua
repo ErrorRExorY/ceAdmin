@@ -28,7 +28,7 @@ RegisterNuiCallback("ceadmin:client:spectate", function(playerData, cb)
   local sourceId = GetPlayerServerId(PlayerId())
 
   if tostring(sourceId) == tostring(playerData.id) then
-    return Notify("Du kannst dir nicht selber zuschauen")
+    return Notify("What the fluff dude, you cannot spectate yourself.")
   end
 
   TriggerServerEvent("ceadmin:server:spectate", playerData)
@@ -74,7 +74,7 @@ RegisterNuiCallback("ceadmin:client:options", function(data, cb)
 
   if data.noclip then
     if not Permissions.NoClip then
-      return Notify("Du hast nicht die erforderlichen Rechte.")
+      return Notify("What the fluff dude, you don't have perms :o")
     end
 
     ToggleNoClip()
@@ -107,7 +107,7 @@ RegisterNuiCallback("ceadmin:nui_cb:ban", function(data, cb)
   end
 
   if tonumber(data.target_id) == GetPlayerServerId(PlayerId()) then
-    return Notify("Du kannst dich nicht selber bannen!")
+    return Notify("What the fluff dude, you can't ban yourself :o")
   end
 
   TriggerServerEvent("ceadmin:server:ban", data)
@@ -121,7 +121,7 @@ RegisterNuiCallback("ceadmin:nui_cb:kick", function(data, cb)
   end
 
   if tonumber(data.target_id) == GetPlayerServerId(PlayerId()) then
-    return Notify("Du kannst dich nicht selber kicken!")
+    return Notify("What the fluff dude, you can't kick yourself :o")
   end
 
   Debug("[ceadmin:nui_cb:kick] Data Param:", json.encode(data))
@@ -135,17 +135,4 @@ RegisterNuiCallback("ceadmin:nui_cb:unban:global", function(data)
   end
 
   TriggerServerEvent("ceadmin:server:unban", data)
-end)
-
-RegisterNuiCallback("ceadmin:nui_cb:jail", function(data, cb)
-  if not next(data) then
-    return Debug("(Error) [ceadmin:nui_cb:jail] data param is null.")
-  end
-
-  if tonumber(data.target_id) == GetPlayerServerId(PlayerId()) then
-    return Notify("Du kannst dich nicht selber Jailen!")
-  end
-
-  TriggerServerEvent("ceadmin:server:jail", data)
-  cb({})
 end)

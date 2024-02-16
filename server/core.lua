@@ -14,7 +14,6 @@ AddEventHandler("playerJoining", function(_srcString, _oldID)
 	end
 
 	local playerName = GetPlayerName(source)
-	local bucket = GetPlayerRoutingBucket(source)
 
 	if type(playerName) ~= "string" then
 		return Debug("(Error) [eventHandler:playerJoining] Player name isn't a string, Player name type: ",
@@ -50,7 +49,6 @@ SetTimeout(5000, function()
 			local playerData = CPlayer:new(player)
 
 			PlayerList[tonumber(player)] = playerData
-			PlayerList[tonumber(player)].bucket = GetPlayerRoutingBucket(player)
 		end
 	end)
 end)
@@ -125,7 +123,7 @@ AddEventHandler("playerConnecting", function(_name, _setKickReason, deferrals)
 
 	deferrals.defer()
 	Wait(50)
-	deferrals.update("Ich gucke ob du gebannt bist...")
+	deferrals.update("Checking if the user is banned...")
 
 	for banIndex, banEntry in pairs(banlist) do
 		local identifierCheck = loopThroughIdentifiers(banEntry.identifiers, identifiers)
@@ -136,7 +134,7 @@ AddEventHandler("playerConnecting", function(_name, _setKickReason, deferrals)
 
 			if remainingTime <= 0 then
 				table.remove(banlist, banIndex)
-				deferrals.update("Du wurdest entbannt.")
+				deferrals.update("Ban has expired, unbanning user.")
 			else
 				local kickReason = (
 					Lang:t("ban_info", {

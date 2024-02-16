@@ -1,6 +1,6 @@
 Config = {
-  Debug = false,              -- Use only for development/debugging purposes, fills the client and server sided console with allot of debugging info.
-  KeyMapping = "NUMPAD6",         -- The key to open the Admin Menu.
+  Debug = true,              -- Use only for development/debugging purposes, fills the client and server sided console with allot of debugging info.
+  KeyMapping = "F9",         -- The key to open the Admin Menu.
   ChatMessages = true,       -- Messages that get sent to the chat once an action is triggered, such as a player is banned, kicked, offline banned and car wipes.
   UseDiscordRestAPI = false, -- Replaces the ACE PermissionSystem with one relying on the Discord REST API where players get their permissions based on their roles, make sure to configure the bot token and guild id in sv_config.lua
   DefaultPermissions = {
@@ -39,7 +39,6 @@ Config = {
         NoClip = true,
         Heal = true,
         Armor = true,
-        Jail = true,
         ["Player Names"] = true,
         ["Car Wipe"] = true
       }
@@ -61,7 +60,6 @@ Config = {
         NoClip = true,
         Heal = true,
         Armor = true,
-        Jail = true,
         ["Player Names"] = true,
         ["Car Wipe"] = true
       }
@@ -70,11 +68,11 @@ Config = {
   Embed = {
     color = '1',
     footer = {
-      text = 'ceAdmin | Logs',
+      text = 'vAdmin | Logs',
       icon_url = ''
     },
     user = {
-      name = 'ceAdmin',
+      name = 'vAdmin',
       icon_url =
       'https://cdn.discordapp.com/attachments/839129248265666589/1178613078653415475/image2_1.jpg?ex=6576c7f7&is=656452f7&hm=41595ca2d7be4dc07895fabb7b04b9725f45c282292930c97e5ab5ebe4e5e89a&'
     }

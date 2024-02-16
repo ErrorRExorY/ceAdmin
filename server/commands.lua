@@ -34,4 +34,3 @@ RegisterCommand("ceunban", function(source, args, _rawCommand)
     print("(Error) Player with that Ban ID not found!")
   end
 end)
-
