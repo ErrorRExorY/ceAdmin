@@ -61,31 +61,12 @@ RegisterCommand('addhacker', function(source, args)
             local routingBucket = 9999 -- Ein spezieller Routing-Bucket für Hacker
             SetPlayerRoutingBucket(targetId, routingBucket)
             SetRoutingBucketEntityLockdownMode(routingBucket, 'strict') -- Setzen Sie den Lockdown-Modus auf streng
-            sendMessage(source, ('Spieler %s wurde in den Lockdown-Routing-Bucket verschoben.'):format(GetPlayerName(targetId)))
-
-            -- Aktualisieren Sie die Spielerliste und senden Sie sie an alle Clients
-            local players = {}
-            for _, playerId in ipairs(GetActivePlayers()) do
-                local playerName = GetPlayerName(playerId)
-                local playerRoutingBucket = GetPlayerRoutingBucket(playerId)
-                if playerRoutingBucket == 9999 then -- Hinzufügen nur für Hacker-Bucket
-                    table.insert(players, {name = playerName, bucket = playerRoutingBucket})
-                end
-            end
-            TriggerClientEvent('updatePlayerList', -1, players) -- -1 sendet an alle Spieler
-
-            -- Sende auch eine Nachricht an das NUI-Overlay, um es zu aktualisieren
-            local overlayData = {
-                action = 'updateBucketInfo',
-                player = GetPlayerName(targetId),
-                bucket = routingBucket
-            }
-            TriggerClientEvent('updateOverlay', -1, overlayData)
+            ESX.ShowNotification('Spieler: ' .. GetPlayerName(targetId) .. ' wurde in den Lockdown-Routing-Bucket verschoben.')
         else
-            sendMessage(source, '~r~Bitte geben Sie eine gültige Spieler-ID ein!')
+            ESX.ShowNotification('Bitte geben Sie eine gültige Spieler-ID ein!')
         end
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -96,12 +77,12 @@ RegisterCommand('removehacker', function(source, args)
             local routingBucket = 0 -- Der Standard-Routing-Bucket
             SetPlayerRoutingBucket(targetId, routingBucket)
             SetRoutingBucketEntityLockdownMode(9999, 'inactive') -- Setzen Sie den Lockdown-Modus auf inaktiv
-            sendMessage(source, ('Spieler %s wurde in den Standard-Routing-Bucket zurückversetzt.'):format(GetPlayerName(targetId)))
+            ESX.ShowNotification('Spieler: ' .. GetPlayerName(targetId) .. ' wurde in den Standard-Routing-Bucket zurückversetzt.')
         else
-            sendMessage(source, '~r~Bitte geben Sie eine gültige Spieler-ID ein!')
+            ESX.ShowNotification('Bitte geben Sie eine gültige Spieler-ID ein!')
         end
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -110,9 +91,9 @@ RegisterCommand('gpbucket', function(source, args)
         local targetId = args[1] or source
         local playerName = GetPlayerName(targetId)
         local routingBucket = GetPlayerRoutingBucket(targetId)
-        sendMessage(source, ('Spieler %s ist in Routing Bucket %s.'):format(playerName, routingBucket))
+        ESX.ShowNotification('Spieler: ' .. GetPlayerName(targetId) .. ' ist in Routing Bucket ' .. routingBucket .. '.')
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -128,9 +109,9 @@ RegisterCommand('spbucket', function(source, args)
             SetEntityRoutingBucket(vehicle, routingBucket)
         end
 
-        sendMessage(source, ('Spieler %s wurde in Routing Bucket %s verschoben.'):format(playerName, routingBucket))
+        ESX.ShowNotification('Spieler: ' .. GetPlayerName(targetId) .. ' wurde in Routing Bucket ' .. routingBucket .. ' verschoben.')
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -159,9 +140,9 @@ RegisterCommand('spbucketrad', function(source, args)
             end
         end
 
-        sendMessage(source, ('Spieler %s und alle Spieler im Radius von %s Einheiten wurden in Routing Bucket %s verschoben.'):format(playerName, radius, routingBucket))
+        ESX.ShowNotification('Spieler: ' .. GetPlayerName(targetId) .. ' und alle Spieler im Radius von ' .. radius .. ' Einheiten wurden in Routing Bucket ' .. routingBucket .. ' verschoben.')
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -169,9 +150,9 @@ RegisterCommand('gebucket', function(source, args)
     if havePermission(source) then
         local entity = tonumber(args[1])
         local routingBucket = GetEntityRoutingBucket(entity)
-        sendMessage(source, ('Die Routing-Bucket-ID der Entity beträgt %s.'):format(routingBucket))
+        ESX.ShowNotification('Die Routing-Bucket-ID der Entity beträgt ' .. routingBucket .. '.')
     else
-        sendMessage(source, '~r~Du hast keine Berechtigung für diesen Befehl!')
+      ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -180,11 +161,10 @@ RegisterCommand('sebucket', function(source, args)
         local routingBucket = tonumber(args[1])
         local enabled = (args[2] == 'true')
         setRoutingBucketPopulationEnabled(routingBucket, enabled)
-        sendMessage(source, ('Bevölkerung %s für Routing Bucket %s.'):format(
-            (enabled and 'Aktiviert' or 'Deaktiviert'), routingBucket
-        ))
+        
+        ESX.ShowNotification('Bevölkerung ' .. (enabled and 'Aktiviert' or 'Deaktiviert') .. ' für Routing Bucket ' .. routingBucket .. '.')
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+      ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -193,9 +173,9 @@ RegisterCommand('bucketpop', function(source, args)
         local routingBucket = tonumber(args[1])
         local population = tonumber(args[2])
         setRoutingBucketPopulation(routingBucket, population)
-        sendMessage(source, ('Bevölkerung für Routing Bucket %s auf %s gesetzt.'):format(routingBucket, population))
+        ESX.ShowNotification('Bevölkerung für Routing Bucket ' .. routingBucket .. ' auf ' .. population .. ' gesetzt.')
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 end)
 
@@ -204,28 +184,10 @@ RegisterCommand('bucketlock', function(source, args, rawCommand)
         local routingBucket = tonumber(args[1])
         local mode = args[2]
         setRoutingBucketLockdownMode(routingBucket, mode)
-        sendMessage(source, ('Lockdown-Modus für Routing Bucket %s ist jetzt %s.'):format(
-            routingBucket, mode
-        ))
+        ESX.ShowNotification('Lockdown-Modus für Routing Bucket ' .. routingBucket .. ' ist jetzt ' .. mode .. '.')
     else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
+        ESX.ShowNotification('Keine Berechtigungen!')
     end
 
-end)
-
-RegisterCommand('showbuckets', function(source, args)
-    if havePermission(source) then
-        local players = {}
-        for _, playerId in ipairs(GetActivePlayers()) do
-            local playerName = GetPlayerName(playerId)
-            local routingBucket = GetPlayerRoutingBucket(playerId)
-            if routingBucket == 9999 then -- Anzeigen nur für Hacker-Bucket
-                table.insert(players, {name = playerName, bucket = routingBucket})
-            end
-        end
-        TriggerClientEvent('updatePlayerList', source, players)
-    else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
-    end
 end)
 
