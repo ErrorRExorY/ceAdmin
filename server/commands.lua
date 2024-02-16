@@ -87,7 +87,7 @@ RegisterCommand('removehacker', function(source, args)
     end
 end)
 
-RegisterCommand('gpbucket', function(source, args)
+RegisterCommand('getpbucket', function(source, args)
     if havePermission(source) then
         local targetId = args[1] or source
         local playerName = GetPlayerName(targetId)
@@ -98,7 +98,7 @@ RegisterCommand('gpbucket', function(source, args)
     end
 end)
 
-RegisterCommand('spbucket', function(source, args)
+RegisterCommand('setpbucket', function(source, args)
     if havePermission(source) then
         local targetId = args[1] or source
         local playerName = GetPlayerName(targetId)
@@ -116,7 +116,7 @@ RegisterCommand('spbucket', function(source, args)
     end
 end)
 
-RegisterCommand('spbucketrad', function(source, args)
+RegisterCommand('setpbucketrad', function(source, args)
   if havePermission(source) then
       local targetId = args[1] or source
       local playerName = GetPlayerName(targetId)
@@ -149,30 +149,7 @@ RegisterCommand('spbucketrad', function(source, args)
   end
 end)
 
-RegisterCommand('gebucket', function(source, args)
-    if havePermission(source) then
-        local entity = tonumber(args[1])
-        local routingBucket = GetEntityRoutingBucket(entity)
-        sendMessage(source, ('Die Routing-Bucket-ID der Entity beträgt %s.'):format(routingBucket))
-    else
-        sendMessage(source, '~r~Du hast keine Berechtigung für diesen Befehl!')
-    end
-end)
-
-RegisterCommand('sebucket', function(source, args)
-    if havePermission(source) then
-        local routingBucket = tonumber(args[1])
-        local enabled = (args[2] == 'true')
-        setRoutingBucketPopulationEnabled(routingBucket, enabled)
-        sendMessage(source, ('Bevölkerung %s für Routing Bucket %s.'):format(
-            (enabled and 'Aktiviert' or 'Deaktiviert'), routingBucket
-        ))
-    else
-        sendMessage(source, '~r~You don\'t have permission to do this command!')
-    end
-end)
-
-RegisterCommand('bucketpop', function(source, args)
+RegisterCommand('setbucketpop', function(source, args)
     if havePermission(source) then
         local routingBucket = tonumber(args[1])
         local population = tonumber(args[2])
@@ -183,11 +160,11 @@ RegisterCommand('bucketpop', function(source, args)
     end
 end)
 
-RegisterCommand('bucketlock', function(source, args, rawCommand)
+RegisterCommand('setbucketlock', function(source, args, rawCommand)
     if havePermission(source) then
         local routingBucket = tonumber(args[1])
         local mode = args[2]
-        setRoutingBucketLockdownMode(routingBucket, mode)
+        setRoutingBucketEntityLockdownMode(routingBucket, mode)
         sendMessage(source, ('Lockdown-Modus für Routing Bucket %s ist jetzt %s.'):format(
             routingBucket, mode
         ))

@@ -202,7 +202,66 @@ TriggerEvent('chat:addSuggestions', {
     params = {
       { name = "player", help = "Spieler ID (Benötigt)" },
     }
-  }
+  },
+  {
+    name = '/setpbucket',
+    help = 'Teleportiere einen Spieler in einen andere Bucket [Admin Only]',
+    params = {
+      { name = "player", help = "Spieler ID (Benötigt)" },
+      { name = "bucket", help = "Bucket ID (Benötigt)" },
+    }
+  },
+  {
+    name = '/setpbucketrad',
+    help = 'Teleportiere einen Spieler in einen andere Bucket [Admin Only]',
+    params = {
+      { name = "player", help = "Spieler ID (Benötigt)" },
+      { name = "bucket", help = "Bucket ID (Benötigt)" },
+      { name = "radius", help = "Radius Default 0" },
+    }
+  },
+  {
+    name = '/getpbucket',
+    help = 'Hiermit bekommst du in welchem Bucket sich ein Spieler befindet [Admin Only]',
+    params = {
+      { name = "player", help = "Spieler ID (Benötigt)" },
+
+    }
+  },
+  {
+    name = '/setbucketpop',
+    help = 'Hiermit setzt du die Bevökerung eines Buckets [Admin Only]',
+    params = {
+      { name = "bucket", help = "Bucket ID (Benötigt)" },
+      { name = "mode", help = "true um Bevölkerung zu aktivieren false fürs deaktivieren (Benötigt)" },
+
+    }
+  },
+  {
+    name = '/setbucketlock',
+    help = 'Hiermit setzt du einen Bucket in LockDownMode [Admin Only]',
+    params = {
+      { name = "bucket", help = "Bucket ID (Benötigt)" },
+      { name = "mode", help = "strict, relaxed und inactive sind die Modes. Inactive ist normal, strict ist LockdownBucket" },
+
+    }
+  },
+  {
+    name = '/addhacker',
+    help = 'Hiermit schiebst du einen Hacker in einen Lockdown-Bucket! [Admin Only]',
+    params = {
+      { name = "player", help = "Spieler ID (Benötigt)" },
+
+    }
+  },
+  {
+    name = '/removehacker',
+    help = 'Hiermit holst du eine User aus dem HackerBucket [Admin Only]',
+    params = {
+      { name = "player", help = "Spieler ID (Benötigt)" },
+
+    }
+  },
 })
 
 
